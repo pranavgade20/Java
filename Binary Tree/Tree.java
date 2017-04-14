@@ -28,10 +28,6 @@ public class Tree
         size++;
     }
     
-    public void sort(){//return an sorted array of elements in the tree
-        //Needs serious work :-|          ;-P
-    }
-    
     /**
      * A method to search an element in the tree.
      * If exists, return true, else return false.
@@ -44,5 +40,17 @@ public class Tree
         boolean result = base.search(x);
         
         return result;
+    }
+    
+    /**
+     * A method to print the binary tree.
+     *
+     * @param  null
+     * @return null
+     */
+    public void show()
+    {
+        System.out.println("The tree has " + size + " element(s).");
+        base.show();
     }
 }
