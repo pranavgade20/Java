@@ -44,7 +44,7 @@ public class Node
                 right = new Node(n, this);
             }
         }else{
-            System.out.println("Value is the same!");
+            System.out.println("Value already exists in the tree.");
         }
     }
     
@@ -69,5 +69,22 @@ public class Node
         }
         return result;
     }
-
+    
+    /**
+     * A method to print the binary tree. 
+     * Can be used to return arrays or numbers in a order.
+     *
+     * @param  null
+     * @return null
+     */
+    public void show()
+    {
+        if(left != null){
+            left.show();
+        }
+        System.out.println(value);
+        if(right != null){
+            right.show();
+        }
+    }
 }
