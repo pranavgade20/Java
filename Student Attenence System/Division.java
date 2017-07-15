@@ -5,50 +5,34 @@ import java.util.*;
  * Contains an array of Students, Size of division(no. of boys & girls), Teacher name
  *
  * @author Pranav Gade
- * @version 0.
+ * @version 0.x
  */
 public class Division
 {
     public int divSize = 1;
     public Student[] students = new Student[divSize];
     
+    public String divID;
     public String teacherName;
     
     /**
      * Constructor for objects of class Division
      */
-    public Division(Student new_student, String class_teacher_name)
+    public Division(String div_id, String class_teacher_name, Student new_student)
     {
-        students[0] = new_student;
-        
+        divID = div_id;
         teacherName = class_teacher_name;
+        students[0] = new_student;
     }
 
     /**
      * A method to add a student to the division
      *
-     * @param  void         nothing
-     * @return              nothing for now
+     * @param   new_student  The Student to be added
+     * @return               nothing for now
      */
-    public void addStudent()
-    {
-        Student new_student;
-        Scanner s = new Scanner(System.in);
-        
-        System.out.println("Enter the new student's name:");
-        String new_student_name = s.next();
-        System.out.println("Enter the new student's Date of Birth:");
-        String new_student_DOB = s.next();
-        System.out.println("Enter the new student's Date of Admission:");
-        String new_student_DOA = s.next();
-        System.out.println("Is the student a Boy?");
-        boolean new_student_isBoy = s.nextBoolean();
-        System.out.println("Enter the new student Password:");
-        String new_student_passwd = s.next();
-        
-        new_student = new Student(new_student_name, new_student_DOB, new_student_DOA,
-                                  new_student_isBoy, new_student_passwd);
-        
+    public void addStudent(Student new_student)
+    {      
         // a temporary array to store students' details while
         // the orignal array is reallocated
         Student[] temp;// declaration
@@ -65,5 +49,19 @@ public class Division
             students[i] = temp[i];
         }
         students[divSize-1] = new_student;// the last student is the new one
+    }
+
+    public boolean login(int id){
+        //we should be left with a 2 digit id by this stage.
+
+        boolean success = students[id].login();
+
+        if (success) {
+            System.out.println("from Division " + divID);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }

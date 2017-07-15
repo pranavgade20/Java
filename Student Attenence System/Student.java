@@ -1,3 +1,4 @@
+import java.util.*;
 
 /**
  * Class to model a student.
@@ -24,13 +25,21 @@ public class Student
       password = passwd;
    }
    
-   public void logIn(String pass){
+   public boolean login(){
+      Scanner s = new Scanner(System.in);
+      System.out.println("Enter your password:");
+      String pass = s.next();
+
       if(pass == password){
          isPresent = true;
-         System.out.println("Welcome, " + name + "!");
+         System.out.println("Welcome, " + name);
+         
+         return true;
       }else{
           System.out.println("Sorry, that is NOT the correct password.");
           System.out.println("Please try again.");
+
+          return false;
       }
    }
 }
