@@ -30,7 +30,7 @@ public class Student
       System.out.println("Enter your password:");
       String pass = s.next();
 
-      if(pass == password){
+      if(password.equals(pass)){
          isPresent = true;
          System.out.println("Welcome, " + name);
          

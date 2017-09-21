@@ -56,12 +56,6 @@ public class Division
 
         boolean success = students[id].login();
 
-        if (success) {
-            System.out.println("from Division " + divID);
-
-            return true;
-        } else {
-            return false;
-        }
+        return success;
     }
 }

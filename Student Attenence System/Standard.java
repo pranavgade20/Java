@@ -91,10 +91,6 @@ public class Standard
 
         boolean success = divisions[div].login(id);
 
-        if (success) {
-            return true;
-        } else {
-            return false;
-        }
+        return success;
     }
 }
