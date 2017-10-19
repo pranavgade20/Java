@@ -27,12 +27,12 @@ public class Student
    
    public boolean login(){
       Scanner s = new Scanner(System.in);
-      System.out.println("Enter your password:");
+      System.out.print("Enter your password:");
       String pass = s.next();
 
       if(password.equals(pass)){
          isPresent = true;
-         System.out.println("Welcome, " + name);
+         System.out.println("Welcome, " + name + "\n");
          
          return true;
       }else{

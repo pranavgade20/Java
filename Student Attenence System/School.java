@@ -1,9 +1,3 @@
-//there is a massive confusion btw schoolsize and
-//no of students present.
-//remove schoolsize++ frm add standard and add student
-//fix the dispstats function in the same
-//declare a new var for the same.
-
 import java.util.*;
 
 /**
@@ -13,19 +7,15 @@ import java.util.*;
  * @version 0.3
  */
 
-/*
-   The basic structure is:
-
-*/
 public class School
 {
-  public String schoolName = "Ryan International School, Kharghar";
-  public String principalName = "Principal Mam";
-  public String masterPass = "stupid";
+   public String schoolName = "Ryan International School, Kharghar";
+   public String principalName = "Principal Mam";
+   public String masterPass = "stupid";
 
-  public int schoolSize = 1;
-  public Standard[] standards = new Standard[schoolSize];
-  public int no_of_students_present = 0;
+   public int schoolSize = 1;
+   public Standard[] standards = new Standard[schoolSize];
+   public int students_present = 0;
 
     /**
      * Constructor for class School
@@ -47,17 +37,18 @@ public class School
        Student new_student;
        Scanner s = new Scanner(System.in);
 
-       System.out.println("Enter the new student's name:");
+       System.out.print("Enter the new student's name: ");
        String new_student_name = s.next();
-       System.out.println("Enter the new student's Date of Birth:");
+       System.out.print("Enter the new student's Date of Birth: ");
        String new_student_DOB = s.next();
-       System.out.println("Enter the new student's Date of Admission:");
+       System.out.print("Enter the new student's Date of Admission: ");
        String new_student_DOA = s.next();
-       System.out.println("Is the student a Boy?(y/n)");
+       System.out.print("Is the student a Boy?(y/n): ");
        boolean new_student_isBoy = getYesOrNo();
        
-       System.out.println("Enter the new student Password:");
+       System.out.print("Enter the new student Password: ");
        String new_student_passwd = s.next();
+       System.out.println("");
 
        new_student = new Student(new_student_name, new_student_DOB, new_student_DOA,
         new_student_isBoy, new_student_passwd);
@@ -71,18 +62,18 @@ public class School
      * @param     void
      * @return    void
      */
-    public void addStudent()
+    public int addStudent()
     {
        Scanner s = new Scanner(System.in);
        Student new_student = createStudent();
 
-       System.out.println("Enter the GRADE or STANDARD(1-10) of the student:");
-       int grade;
-       grade = s.nextInt();
-       grade--;
+       System.out.print("Enter the GRADE or STANDARD(1-10) of the student: ");
+       int grade = s.nextInt();
+       grade--;// to get the index in the array
 
-       standards[grade].addStudent(new_student);
+       int id = standards[grade].addStudent(new_student);
        schoolSize++;
+       return (id*100)+grade;
     }
 
     /**
@@ -102,9 +93,9 @@ public class School
        schoolSize++;
 
        System.out.println("Please enter the details of the first division:");
-       System.out.println("Enter the new division's ID:");
+       System.out.print("Enter the new division's ID: ");
        String new_div_ID = s.next();
-       System.out.println("Enter the new division's teacher's name:");
+       System.out.print("Enter the new division's teacher's name: ");
        String new_div_teacher = s.next();
 
        new_division = new Division(new_div_ID, new_div_teacher, new_student);
@@ -136,7 +127,7 @@ public class School
       * @return    boolean
       *
       */
-    public boolean getYesOrNo(){
+   public boolean getYesOrNo(){
       Scanner s = new Scanner(System.in);
       String yes_or_no = s.next();
       yes_or_no = yes_or_no.toLowerCase();
@@ -151,19 +142,19 @@ public class School
       return false;
    }
 
-    /**
-      * Method to display all stats like present n absent students
-      *
-      * @param     void
-      * @return    void
-      *
-      * Current Functions-
-      * 1. No. of Students present
-      * 2. No. of Students absent
-      */
-    public void dispStats(){
-      System.out.println("Today, "+no_of_students_present+" students are present.");
-      System.out.print("and "+(schoolSize-no_of_students_present)+" are absent, ");
+   /**
+     * Method to display all stats like present n absent students
+     *
+     * @param     void
+     * @return    void
+     *
+     * Current Functions-
+     * 1. No. of Students present
+     * 2. No. of Students absent
+     */
+   public void dispStats(){
+      System.out.println("Today, "+students_present+" students are present.");
+      System.out.print("and "+(schoolSize-students_present)+" are absent, ");
       System.out.println("out of "+schoolSize+" students.");
    }
 
@@ -175,12 +166,12 @@ public class School
       * @return    boolean
       *
       */
-    public boolean startANewDay(){
-      System.out.println("Are you sure you want to start a new day?(y/n)");
+   public boolean startANewDay(){
+      System.out.print("Are you sure you want to start a new day?(y/n): ");
       if(getYesOrNo() == false) return false;
 
       //if false is not returned:
-      no_of_students_present = 0;
+      students_present = 0;
       for (int x=0;x<schoolSize ;x++) { // set all the student's isPresent to false
          for (int y=0;y<standards[x].stdSize ;y++) {
             for (int z=0;z<standards[x].divisions[y].divSize ;z++) {
@@ -215,94 +206,97 @@ public class School
    }
 
    public void main(){
-    Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
 
         //first Student in the school
-    System.out.println("Please enter the first student's details:");
-        Student first_student = createStudent();//fill in the details
+        System.out.println("Please enter the first student's details:");
+      Student first_student = createStudent();//fill in the details
 
-        //first standard
-        System.out.println("Creating the first standard...");
+      //first standard
+      System.out.println("Creating the first standard...\n");
 
-        //first division
-        System.out.println("Please enter the first division's ID:");
-        String div_id = s.next();
-        System.out.println("Please enter the teacher's name:");
-        String teacher_name = s.next();
+      //first division
+      System.out.print("Please enter the first division's ID: ");
+      String div_id = s.next();
+      System.out.print("Please enter the teacher's name: ");
+      String teacher_name = s.next();
 
-        //actual creation
-        Division new_div = new Division(div_id, teacher_name, first_student);
-        standards[0] = new Standard(new_div);
+      //actual creation
+      Division new_div = new Division(div_id, teacher_name, first_student);
+      standards[0] = new Standard(new_div);
         
         
-        //The actual program which iterates starts here
-        for (; ; ) {
-            int opt = getOperation();
+      //The actual program which iterates starts here
+      for (; ; ) {
+         int opt = getOperation();
 
-            if (opt == 0) { // Student login
-              System.out.println("Enter your 6-digit ID:");
-              int id = s.nextInt();
+         if (opt == 0) { // Student login
+            System.out.print("Enter your 6-digit ID: ");
+            int id = s.nextInt();
 
-                int std = id%100; // Get the last two digits(standard ID)
-                id -= std; // Remove the last 2 digits from the id
-                id /= 100; // divide id by 100(to continue the same process in standards[std]
+            int std = id%100; // Get the last two digits(standard ID)
+            id -= std; // Remove the last 2 digits from the id
+            id /= 100; // divide id by 100(to continue the same process in standards[std]
 
-                boolean success = standards[std].login(id); // pass new ID
+            boolean success = standards[std].login(id); // pass new ID
 
-                if (success) {
-                   no_of_students_present++;
+            if (success) {
+               students_present++;
+            }
+         }
+
+         if (opt == 1) { // Carry out administrative functions
+            System.out.println("Please select an option:");
+            System.out.println("0. Exit");
+            System.out.println("1. Add a NEW Student to the school.");
+            System.out.println("2. Add a NEW Division to the school.");
+            System.out.println("3. Add a NEW Standard to the school.");
+            System.out.println("4. Display Stats.");
+            System.out.println("5. Start a new day.");
+
+            int funcToDo = s.nextInt();
+
+            switch (funcToDo) {
+               case 1: // add a new student
+                  int ID = addStudent();
+                  System.out.println("The 6-digit ID of the new student is: "+ID);
+               break;
+
+               case 2: // add a new division
+                  System.out.print("Enter the GRADE or STANDARD(1-10) to add the new division: ");
+                  int grade = s.nextInt();
+                  grade--;
+
+                  // create the first student in the div
+                  Student new_student = createStudent();
+
+                  //add the division and new student
+                  standards[grade].addDivision(new_student);
+
+               break;
+
+               case 3:
+                  addStandard();
+               break;
+
+               case 4:
+                  dispStats();
+               break;
+
+               case 5:
+                  System.out.print("Please re-enter the password: ");
+                  String pass = s.next();
+                  if(Objects.equals(masterPass, pass)) {
+                     startANewDay();
+                  } else {
+                     System.out.println("Abort.");
                 }
-             }
-
-            if (opt == 1) { // Carry out administrative functions
-              System.out.println("Please select an option:");
-              System.out.println("0. Exit");
-              System.out.println("1. Add a NEW Student to the school.");
-              System.out.println("2. Add a NEW Division to the school.");
-              System.out.println("3. Add a NEW Standard to the school.");
-              System.out.println("4. Display Stats.");
-              System.out.println("5. Start a new day.");
-
-              int funcToDo = s.nextInt();
-
-              switch (funcToDo) {
-                  case 1: // add a new student
-                     addStudent();
-                     break;
-
-                  case 2: // add a new division
-                     System.out.println("Enter the GRADE or STANDARD(1-10) to add the new division.");
-                     int grade;
-                     grade = s.nextInt();
-                     grade--;
-
-                     // create the first student in the div
-                     Student new_student = createStudent();
-
-                     //add the division and new student
-                     standards[grade].addDivision(new_student);
-
-                     break;
-
-                  case 3:
-                     addStandard();
-                     break;
-
-                  case 4:
-                     dispStats();
-                     break;
-
-                  case 5:
-                     System.out.println("Please re-enter the password.");
-                     String pass = s.next();
-                     if(Objects.equals(masterPass, pass)) {
-                        startANewDay();
-                     } else {
-                        System.out.println("Abort.");
-                     }
-                  
-                 }
-              }
-           }
-        }
-     }
+               break;
+            }
+         }
+         for (int sp = 0; sp < 10; sp++) {
+            System.out.println("\n\n");
+         }
+      }
+   }
+}

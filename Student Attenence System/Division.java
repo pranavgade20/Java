@@ -31,7 +31,7 @@ public class Division
      * @param   new_student  The Student to be added
      * @return               nothing for now
      */
-    public void addStudent(Student new_student)
+    public int addStudent(Student new_student)
     {      
         // a temporary array to store students' details while
         // the orignal array is reallocated
@@ -49,6 +49,7 @@ public class Division
             students[i] = temp[i];
         }
         students[divSize-1] = new_student;// the last student is the new one
+        return (divSize-1);// returning the roll number
     }
 
     public boolean login(int id){
