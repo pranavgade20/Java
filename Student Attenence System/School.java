@@ -198,11 +198,25 @@ public class School
       System.out.println("Select the operation you want to perform:");
       System.out.println("1. Login");
       System.out.println("2. Administrative function");
+      System.out.print("Enter your chioce: ");
 
       int opt = s.nextInt();
       opt--; // Decrement to start from 0
+      System.out.println("");
 
-      return opt;
+      if(opt == 1) {// Check if the user wanting to perform administrative function is authorised
+         System.out.print("Please enter the master password: ");
+         String st = s.next();
+
+         if(st.equals(masterPass)){
+            return 1;
+         } else {
+            System.out.println("Wrong password, please try again.");
+            return 6;// somr arbitary number so that the loop in main continues
+         }
+      } else {
+         return opt;
+      }
    }
 
    public void main(){
@@ -253,8 +267,10 @@ public class School
             System.out.println("3. Add a NEW Standard to the school.");
             System.out.println("4. Display Stats.");
             System.out.println("5. Start a new day.");
+            System.out.print("Enter your choice: ");
 
             int funcToDo = s.nextInt();
+            System.out.println("");
 
             switch (funcToDo) {
                case 1: // add a new student
@@ -291,6 +307,10 @@ public class School
                   } else {
                      System.out.println("Abort.");
                 }
+               break;
+
+               default:
+                  System.out.println("Please enter the correct option.");
                break;
             }
          }

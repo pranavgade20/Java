@@ -77,6 +77,7 @@ public class Standard
             System.out.print((i+1) + ".");//adding 1 to i to start list from 1
             System.out.println(divisions[i].divID);
         }
+        System.out.print("Enter your choice: ");
         int divID;// user's choice/option
         divID = s.nextInt();
         divID--;// decrease by one to get the index in array
